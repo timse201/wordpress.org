@@ -530,22 +530,32 @@ function get_locale_translation_status( int $percent_translated ): string {
 
 /**
  * Gets the Slack username for a .org user.
+ *
+ * @param int $user_id User ID.
+ * @return string Slack username or empty string if not found.
  */
 function get_slack_username( int $user_id ): string {
+	static $slack_cache = [];
+
+	if ( array_key_exists( $user_id, $slack_cache ) ) {
+		return $slack_cache[ $user_id ];
+	}
+
 	global $wpdb;
 
-	$slack_username = '';
+	$slack_cache[ $user_id ] = '';
 
 	$data = $wpdb->get_var( $wpdb->prepare( 'SELECT profiledata FROM slack_users WHERE user_id = %d', $user_id ) );
-	if ( $data && ( $data = json_decode( $data, true ) ) ) {
-		if ( ! empty( $data['profile']['display_name'] ) && empty( $data['deleted'] ) ) {
-			// Optional Display Name field.
-			$slack_username = $data['profile']['display_name'];
-		} elseif ( ! empty( $data['profile']['real_name'] ) && empty( $data['deleted'] ) ) {
-			// Fall back to "Full Name" field.
-			$slack_username = $data['profile']['real_name'];
+	if ( $data ) {
+		$profile = json_decode( $data, true );
+
+		if ( is_array( $profile ) && empty( $profile['deleted'] ) ) {
+			$display_name = $profile['profile']['display_name'] ?? '';
+			$real_name    = $profile['profile']['real_name'] ?? '';
+
+			$slack_cache[ $user_id ] = $display_name ?: $real_name;
 		}
 	}
 
-	return $slack_username;
+	return $slack_cache[ $user_id ];
 }
