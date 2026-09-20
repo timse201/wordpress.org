@@ -313,6 +313,9 @@ function get_core_translation_data() {
 
 /**
  * Gets the main Rosetta site ID for a given locale.
+ *
+ * @param  GP_Locale  $locale  The locale object.
+ * @return int|null
  */
 function get_locale_site_id( GP_Locale $locale ): ?int {
 	static $site_ids = [];
@@ -339,6 +342,10 @@ function get_locale_site_id( GP_Locale $locale ): ?int {
 
 /**
  * Retrieves prepared users for a given site ID and role.
+ *
+ * @param int     $site_id  Site ID.
+ * @param string  $role     User role slug.
+ * @return array
  */
 function get_users_by_role( int $site_id, string $role ): array {
 	$users = get_users(
@@ -361,6 +368,9 @@ function get_users_by_role( int $site_id, string $role ): array {
 
 /**
  * Get the locale managers for the given locale.
+ *
+ * @param  GP_Locale  $locale  The locale object.
+ * @return array
  */
 function get_locale_managers( GP_Locale $locale ): array {
 	$site_id = get_locale_site_id( $locale );
@@ -369,6 +379,9 @@ function get_locale_managers( GP_Locale $locale ): array {
 
 /**
  * Get the general translation editors for the given locale.
+ *
+ * @param  GP_Locale  $locale  The locale object.
+ * @return array
  */
 function get_general_translation_editors( GP_Locale $locale ): array {
 	$site_id = get_locale_site_id( $locale );
@@ -377,6 +390,9 @@ function get_general_translation_editors( GP_Locale $locale ): array {
 
 /**
  * Get the project translation editors for the given locale.
+ *
+ * @param  GP_Locale  $locale  The locale object.
+ * @return array
  */
 function get_project_translation_editors( GP_Locale $locale ): array {
 	$site_id = get_locale_site_id( $locale );
@@ -386,7 +402,7 @@ function get_project_translation_editors( GP_Locale $locale ): array {
 /**
  * Prepares user objects for output.
  *
- * @param \WP_User $user The user.
+ * @param \WP_User  $user  The user.
  * @return array List of user data.
  */
 function prepare_user( WP_User $user ): array {
@@ -401,8 +417,8 @@ function prepare_user( WP_User $user ): array {
 /**
  * Gets the current and past translation contributors for the given locale.
  *
- * @param GP_Locale $locale
- * @param int       $active_days_threshold Days to consider a contributor "active" (default: 365).
+ * @param  GP_Locale  $locale  The locale object.
+ * @param  int        $active_days_threshold  Days to consider a contributor "active" (default: 365).
  * @return array{translators: array, translators_past: array}
  */
 function get_translation_contributors( GP_Locale $locale, int $active_days_threshold = 365 ): array {
@@ -434,8 +450,15 @@ function get_translation_contributors( GP_Locale $locale, int $active_days_thres
 	$user_ids    = wp_list_pluck( $contributions, 'user_id' );
 	$dates_by_id = wp_list_pluck( $contributions, 'latest_date', 'user_id' );
 
-	$ids_in    = implode( ',', array_map( 'absint', $user_ids ) );
-	$user_rows = $wpdb->get_results( "SELECT ID, user_nicename, display_name FROM {$wpdb->users} WHERE ID IN ({$ids_in})" );
+	$user_ids_placeholders = implode( ', ', array_fill( 0, count( $user_ids ), '%d' ) );
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Dynamically generated %d placeholders for IN clause.
+	$query = $wpdb->prepare(
+		"SELECT ID, user_nicename, display_name FROM {$wpdb->users} WHERE ID IN ($user_ids_placeholders)",
+		$user_ids
+	);
+
+	$user_rows = $wpdb->get_results( $query );
 
 	$translators      = [];
 	$translators_past = [];
