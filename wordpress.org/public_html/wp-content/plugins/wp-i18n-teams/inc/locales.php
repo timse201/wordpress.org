@@ -343,8 +343,8 @@ function get_locale_site_id( GP_Locale $locale ): ?int {
 /**
  * Retrieves prepared users for a given site ID and role.
  *
- * @param int $site_id Site ID.
- * @param string $role User role slug.
+ * @param int    $site_id Site ID.
+ * @param string $role    User role slug.
  * @return array
  */
 function get_users_by_role( int $site_id, string $role ): array {
@@ -417,8 +417,8 @@ function prepare_user( WP_User $user ): array {
 /**
  * Gets the current and past translation contributors for the given locale.
  *
- * @param GP_Locale $locale The locale object.
- * @param int $active_days_threshold Days to consider a contributor "active" (default: 365).
+ * @param GP_Locale $locale                The locale object.
+ * @param int       $active_days_threshold Days to consider a contributor "active" (default: 365).
  * @return array{translators: array, translators_past: array}
  */
 function get_translation_contributors( GP_Locale $locale, int $active_days_threshold = 365 ): array {
