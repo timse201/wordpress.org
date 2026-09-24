@@ -615,7 +615,7 @@ class GP_Locales {
 
 		$de = new GP_Locale();
 		$de->english_name = 'German';
-		$de->native_name = 'Deutsch';
+		$de->native_name = 'Deutsch (du)';
 		$de->lang_code_iso_639_1 = 'de';
 		$de->country_code = 'de';
 		$de->wp_locale = 'de_DE';
@@ -641,7 +641,7 @@ class GP_Locales {
 
 		$de_ch = new GP_Locale();
 		$de_ch->english_name = 'German (Switzerland)';
-		$de_ch->native_name = 'Deutsch (Schweiz)';
+		$de_ch->native_name = 'Deutsch (Schweiz, Sie)';
 		$de_ch->lang_code_iso_639_1 = 'de';
 		$de_ch->country_code = 'ch';
 		$de_ch->wp_locale = 'de_CH';
@@ -650,7 +650,7 @@ class GP_Locales {
 
 		$de_ch_informal = clone $de_ch;
 		$de_ch_informal->english_name = 'German (Switzerland, Informal)';
-		$de_ch_informal->native_name = 'Deutsch (Schweiz, Du)';
+		$de_ch_informal->native_name = 'Deutsch (Schweiz, du)';
 		$de_ch_informal->slug = 'de-ch/informal';
 		$de_ch_informal->wp_locale = 'de_CH_informal';
 		$de_ch_informal->root_slug = $de_ch->slug;
