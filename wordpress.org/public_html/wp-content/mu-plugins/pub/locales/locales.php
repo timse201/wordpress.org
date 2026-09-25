@@ -633,6 +633,8 @@ class GP_Locales {
 		$ca_valencia->native_name = 'Català (Valencià)';
 		$ca_valencia->lang_code_iso_639_1 = 'ca';
 		$ca_valencia->lang_code_iso_639_2 = 'cat';
+		$ca_valencia->lang_code_iso_639_3 = 'cat';
+		$ca_valencia->country_code = 'es';
 		$ca_valencia->wp_locale = 'ca_valencia';
 		$ca_valencia->slug = 'ca-val'; // The slug can only be 10 chars long.
 		$ca_valencia->google_code = 'ca';
