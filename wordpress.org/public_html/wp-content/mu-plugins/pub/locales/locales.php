@@ -843,7 +843,7 @@ class GP_Locales {
 		$dzo->slug = 'dzo';
 		$dzo->nplurals = 1;
 		$dzo->plural_expression = '0';
-		$dzo->alphabet  = 'tibetan';
+		$dzo->alphabet = 'tibetan';
 
 		$ewe = new GP_Locale();
 		$ewe->english_name = 'Ewe';
@@ -874,7 +874,7 @@ class GP_Locales {
 		$el_po->lang_code_iso_639_2 = 'ell';
 		$el_po->country_code = 'gr';
 		$el_po->slug = 'el-po';
-		$el_po->alphabet  = 'polytonic';
+		$el_po->alphabet = 'polytonic';
 
 		$emoji = new GP_Locale();
 		$emoji->english_name = 'Emoji';
@@ -2989,7 +2989,7 @@ class GP_Locales {
 		$zh_tw->lang_code_iso_639_2 = 'zho';
 		$zh_tw->country_code = 'tw';
 		$zh_tw->slug = 'zh-tw';
-		$zh_tw->wp_locale= 'zh_TW';
+		$zh_tw->wp_locale = 'zh_TW';
 		$zh_tw->nplurals = 1;
 		$zh_tw->plural_expression = '0';
 		$zh_tw->google_code = 'zh-TW';
