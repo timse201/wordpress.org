@@ -219,7 +219,7 @@ class GlotPress_Translate_Bridge {
 	 * @return string The cache key.
 	 */
 	private function cache_key( array $strings, $project_path ) {
-    	$payload = serialize( array_filter( $strings ) );
-    	return 'gp_tb:' . strtolower( get_locale() ) . ':' . md5( $project_path . ':' . $payload );
+		$payload = serialize( array_filter( $strings ) );
+		return 'gp_tb:' . strtolower( get_locale() ) . ':' . md5( $project_path . ':' . $payload );
 	}
 }
