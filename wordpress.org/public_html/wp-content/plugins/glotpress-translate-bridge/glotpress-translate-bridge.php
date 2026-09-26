@@ -2,7 +2,7 @@
 /*
  * Plugin Name: GlotPress Translate Bridge
  * Description: This plugin allows for a code to translate arbitrary strings from a GlotPress instance for the current locale.
- * Version: 0.1
+ * Version: 0.2
  * Plugin URI: https://meta.trac.wordpress.org/browser/sites/trunk/wordpress.org/public_html/wp-content/plugins/glotpress-translate-bridge/
  * Author: wordpressdotorg
  * Author URI: http://wordpress.org/
