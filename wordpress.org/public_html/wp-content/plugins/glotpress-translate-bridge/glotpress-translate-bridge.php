@@ -130,6 +130,7 @@ class GlotPress_Translate_Bridge {
 
 		$sql_locale = $wpdb->prepare( "s.locale = %s AND s.slug = %s", $locale['locale'], $locale['slug'] );
 
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Dynamic table prefix cannot be passed via placeholders.
 		$translation = $wpdb->get_row(
 			"SELECT t.translation_0, t.translation_1, t.translation_2, t.translation_3, t.translation_4, t.translation_5
 				FROM {$this->gp_prefix}projects p
@@ -146,6 +147,7 @@ class GlotPress_Translate_Bridge {
 			LIMIT 1",
 			ARRAY_N
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 		if ( ! $translation ) {
 			$decoded_strings = array_map( 'wp_specialchars_decode', $strings );
