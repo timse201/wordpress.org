@@ -1887,7 +1887,9 @@ let wpTrac,
 				// Check on submit that we're not just re-ordering keywords.
 				// Otherwise, Trac flips out and adds a useless 'Keywords changed from X to X' marker.
 				submit() {
-					if ( ! elements.hiddenEl?.length || ! Array.isArray( originalKeywords ) || ! Array.isArray( keywords ) ) {
+					if ( ! elements.hiddenEl?.length ||
+						! Array.isArray( originalKeywords ) ||
+						! Array.isArray( keywords ) ) {
 						return;
 					}
 					if ( keywords.length !== originalKeywords.length ) {
@@ -1900,7 +1902,7 @@ let wpTrac,
 					if ( ! testKeywords.length ) {
 						elements.hiddenEl.val( originalKeywords.join( ' ' ) );
 					}
-				}
+				},
 			};
 		} )(),
 
